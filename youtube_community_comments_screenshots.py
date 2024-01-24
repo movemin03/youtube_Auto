@@ -33,6 +33,7 @@ driver = webdriver.Chrome(options=option)
 driver.get(youtube_url)
 
 print("유튜브 커뮤니티/영상이 로딩이 완료되었다면 엔터")
+a = input()
 start = time.time()
 
 folder_path = upper_path + "\\screenshots"
