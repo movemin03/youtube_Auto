@@ -8,6 +8,7 @@ import pandas as pd
 import os
 import re
 from datetime import datetime
+import lxml
 
 
 # 사용자가 환경에 따라 변경해야 할 값
@@ -15,10 +16,10 @@ ver = str("2024-01-24")
 chrome_ver = 120
 user = os.getlogin()
 upper_path = 'C:\\Users\\' + user + '\\Desktop'
-print("유튜브 댓글 자동 수집기")
+print("유튜브 커뮤니티 댓글 자동 수집기")
 print("파일은 " + upper_path + "와 screenshots 폴더에 저장됩니다")
 #youtube_url = 'https://www.youtube.com/post/UgkxpfyPg1-lXDA6_9Zn2IabV_ugfSaoGq6A'
-print("추적할 유튜브 url 을 아래에 입력해주세요")
+print("추적할 유튜브 커뮤니티 url 을 아래에 입력해주세요")
 youtube_url = input().replace(" ", "").replace("'", "").replace('"', "")
 
 # 크롬드라이버 디버깅 모드 실행
