@@ -16,7 +16,8 @@ ver = str("2024-01-24")
 chrome_ver = 120
 user = os.getlogin()
 upper_path = 'C:\\Users\\' + user + '\\Desktop'
-print("유튜브 커뮤니티 댓글 자동 수집기")
+print("유튜브 댓글 자동 수집기")
+print("본 프로그램은 유튜브 커뮤니티를 기준으로 만들어졌습니다")
 print("파일은 " + upper_path + "와 screenshots 폴더에 저장됩니다")
 #youtube_url = 'https://www.youtube.com/post/UgkxpfyPg1-lXDA6_9Zn2IabV_ugfSaoGq6A'
 print("추적할 유튜브 커뮤니티 url 을 아래에 입력해주세요")
@@ -31,6 +32,7 @@ option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 driver = webdriver.Chrome(options=option)
 driver.get(youtube_url)
 
+print("유튜브 커뮤니티/영상이 로딩이 완료되었다면 엔터")
 start = time.time()
 
 folder_path = upper_path + "\\screenshots"
