@@ -115,6 +115,13 @@ for yt_formatted_string in yt_formatted_strings:
 ## MODIFY VIEW FORMAT
 print("youtube_userIDs 갯수: " + str(len(str_youtube_userIDs)))
 print("str_youtube_comments 갯수: " + str(len(str_youtube_comments)))
+if len(str_youtube_userIDs) < len(str_youtube_comments):
+    diff = len(str_youtube_comments) - len(str_youtube_userIDs)
+    str_youtube_userIDs = [None] * diff + str_youtube_userIDs
+elif len(str_youtube_userIDs) > len(str_youtube_comments):
+    diff = len(str_youtube_userIDs) - len(str_youtube_comments)
+    str_youtube_comments = [None] * diff + str_youtube_comments
+
 df = pd.DataFrame({'ID': str_youtube_userIDs, 'comment': str_youtube_comments})
 youtube_pd = pd.DataFrame(df)
 
