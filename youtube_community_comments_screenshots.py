@@ -12,14 +12,16 @@ import lxml
 
 
 # 사용자가 환경에 따라 변경해야 할 값
-ver = str("2024-01-24")
+ver = str("2024-02-22")
 chrome_ver = 120
 user = os.getlogin()
 upper_path = 'C:\\Users\\' + user + '\\Desktop'
 print("유튜브 댓글 자동 수집기")
+print("https://github.com/movemin03/youtube_comments")
 print("본 프로그램은 유튜브 커뮤니티를 기준으로 만들어졌습니다")
 print("파일은 " + upper_path + "와 screenshots 폴더에 저장됩니다")
-#youtube_url = 'https://www.youtube.com/post/UgkxpfyPg1-lXDA6_9Zn2IabV_ugfSaoGq6A'
+
+#youtube_url = 'https://www.youtube.com/shorts/sZi87-UR2H8'
 print("추적할 유튜브 커뮤니티 url 을 아래에 입력해주세요")
 youtube_url = input().replace(" ", "").replace("'", "").replace('"', "")
 
@@ -32,8 +34,23 @@ option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 driver = webdriver.Chrome(options=option)
 driver.get(youtube_url)
 
-print("유튜브 커뮤니티/영상이 로딩이 완료되었다면 엔터")
-a = input()
+if "www.youtube.com/shorts" in youtube_url:
+    print("주의!!!!! 숏츠 링크를 입력하신 것으로 보입니다")
+    print("숏츠의 댓글창을 열어주십시오")
+    print("숏츠 url 도 가능은 하지만 설명란의 글도 엑셀 파일에 포함이 되는 오류가 있습니다")
+    print("이 경우 아이디와 댓글의 순서가 한 칸 밀릴 수 있습니다. 설명란의 글은 보통 맨 아래에 포함됩니다\n")
+    print("엔터를 눌러주세요")
+    a = input()
+elif "/post" in youtube_url:
+    print("커뮤니티 링크를 입력하신 것으로 보입니다")
+    print("로딩 확인 후 엔터")
+    a = input()
+else:
+    print("주의!!!!! 일반 유튜브 영상 링크를 입력하신 것으로 보입니다")
+    print("일반 유튜브도 가능은 하지만 설명란의 글도 엑셀 파일에 포함이 되는 오류가 있습니다")
+    print("이 경우 아이디와 댓글의 순서가 한 칸 밀릴 수 있습니다. 설명란의 글은 보통 맨 아래에 포함됩니다\n")
+    print("엔터를 눌러주세요")
+    a = input()
 start = time.time()
 
 folder_path = upper_path + "\\screenshots"
@@ -99,15 +116,19 @@ driver.close()
 # HTML 태크 크롤링 작업
 soup = BeautifulSoup(html_source, "lxml")
 str_youtube_userIDs = []
-yt_formatted_strings = soup.find_all('yt-formatted-string', class_='style-scope ytd-comment-renderer style-scope ytd-comment-renderer')
+yt_formatted_strings = soup.find_all('a', id='author-text')
+print(len(yt_formatted_strings))
 for yt_formatted_string in yt_formatted_strings:
-    text = yt_formatted_string.get_text().replace(",", "")
-    cleaned_text = re.sub(r"[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9\s]", "", text)
-    str_youtube_userIDs.append(text)
+    text = yt_formatted_string.get_text().replace(",", "").replace("\n", "")
+    if "@" in text:
+        cleaned_text = re.sub(r"[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9\s-]", "", text)
+        str_youtube_userIDs.append(cleaned_text)
+
 str_youtube_comments = []
-yt_formatted_strings = soup.find_all('yt-formatted-string', class_='style-scope ytd-comment-renderer')
+yt_formatted_strings = soup.find_all('ytd-expander', id='expander')
+print(len(yt_formatted_strings))
 for yt_formatted_string in yt_formatted_strings:
-    text = yt_formatted_string.get_text().replace(",", "")
+    text = yt_formatted_string.get_text().replace(",", "").replace("\n", "").replace("간략히", "").replace("자세히 보기", "")
     cleaned_text = re.sub(r"[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9\s]", "", text)
     str_youtube_comments.append(text)
 
