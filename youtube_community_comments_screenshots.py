@@ -41,7 +41,7 @@ if "www.youtube.com/shorts" in youtube_url:
     print("이 경우 아이디와 댓글의 순서가 한 칸 밀릴 수 있습니다. 설명란의 글은 보통 맨 아래에 포함됩니다\n")
     print("엔터를 눌러주세요")
     a = input()
-elif "/post" in youtube_url:
+elif "/post" or "/channel" in youtube_url:
     print("커뮤니티 링크를 입력하신 것으로 보입니다")
     print("로딩 확인 후 엔터")
     a = input()
@@ -121,7 +121,7 @@ print(len(yt_formatted_strings))
 for yt_formatted_string in yt_formatted_strings:
     text = yt_formatted_string.get_text().replace(",", "").replace("\n", "")
     if "@" in text:
-        cleaned_text = re.sub(r"[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9\s-]", "", text)
+        cleaned_text = re.sub(r"[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9\s-]", "", text).replace(" ", "")
         str_youtube_userIDs.append(cleaned_text)
 
 str_youtube_comments = []
