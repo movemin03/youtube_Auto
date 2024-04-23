@@ -119,7 +119,7 @@ def find_data():
     for video_title in video_titles:
         title = video_title.text
         href = video_title['href']
-        t_list.append("https://www.youtube.com" + title)
+        t_list.append("https://www.youtube.com" + str(title))
         href_list.append(href)
 
 find_data()
