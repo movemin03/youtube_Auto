@@ -1,10 +1,11 @@
 # Standard library imports
+import re
 import os
 import time
-import lxml
 import requests
 
 # Third party imports
+import lxml
 from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
@@ -31,7 +32,7 @@ option.add_argument(f"user-agent={user_agent}")
 # 시작
 print("\n")
 print("유튜브 영상 정보 및 썸네일 추출 프로그램입니다 " + ver)
-print("접속할 블로그에 로그인이 필요합니까? y / n")
+print("접속할 유튜브에 로그인이 필요합니까? y / n")
 print("해당 블로그의 소유주일 경우에는 y 를 권장합니다 (비밀 댓글도 수집할 수 있습니다)")
 a = input()
 if a == "y":
@@ -48,13 +49,33 @@ wait_s = WebDriverWait(driver, 10)
 print("\n접속할 유튜브 비디오 링크 url 입력해야합니다. 반드시 비디오 탭 링크를 주셔야 합니다")
 print("예: https://www.youtube.com/@thinkgood638/videos")
 
+
+def modify_youtube_url(url):
+    if "www.youtube.com/@" in url:
+        # "@" 이후에 "/"가 있는 경우
+        match = re.search(r"@([^/]+)/?", url)
+        if match:
+            # "@" 이후 처음 나오는 "/" 까지의 부분을 추출하여 URL을 생성
+            username = match.group(1)
+            modified_url = f"https://www.youtube.com/@{username}/videos"
+        else:
+            # "@" 이후에 "/"가 없는 경우
+            modified_url = url + "/videos"
+        return modified_url
+    else:
+        modified_url = "잘못된 URL 입니다"
+        return modified_url
+
 while True:
     url = input("주소를 입력:")
-    if "youtube.com/" in url and "/videos" in url:
-        break
-    else:
-        print("반드시 비디오 탭 링크를 주셔야 합니다")
+    modified_url = modify_youtube_url(url)
+    if modified_url == "잘못된 URL 입니다":
+        print("올바른 유튜브 video 탭 링크를 주셔야 합니다")
         continue
+    else:
+        print(modified_url, "로 접속합니다")
+        break
+
 
 # 저장소 생성
 c_list = []
