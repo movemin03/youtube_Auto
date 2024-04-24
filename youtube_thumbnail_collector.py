@@ -33,7 +33,7 @@ option.add_argument(f"user-agent={user_agent}")
 print("\n")
 print("유튜브 영상 정보 및 썸네일 추출 프로그램입니다 " + ver)
 print("접속할 유튜브에 로그인이 필요합니까? y / n")
-print("해당 블로그의 소유주일 경우에는 y 를 권장합니다 (비밀 댓글도 수집할 수 있습니다)")
+print("해당 유튜브 채널의 소유주일 경우에는 y 를 권장합니다 (비밀 댓글도 수집할 수 있습니다)")
 a = input()
 if a == "y":
     print("로그인이 필요한 것으로 확인되었습니다")
