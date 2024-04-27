@@ -63,5 +63,5 @@ if __name__ == "__main__":
     with Pool(processes=pool_count) as pool:
         pool.map(process_file, file_list)
 
-print("\n이미지 처리 완료되었습니다. 아무거나 입력 후 엔터하면 종료됩니다")
-a = input()
+    print("\n이미지 처리 완료되었습니다. 아무거나 입력 후 엔터하면 종료됩니다")
+    a = input()
