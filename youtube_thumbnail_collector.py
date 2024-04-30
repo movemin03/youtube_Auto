@@ -140,12 +140,12 @@ def find_data():
     for video_title in video_titles:
         title = video_title.text
         href = video_title['href']
-        t_list.append("https://www.youtube.com" + str(title))
+        t_list.append(str(title))
         href_list.append(href)
 
 find_data()
-
-print(len(src_list))
+src_list_length = len(src_list)
+print(src_list_length)
 print(len(t_list))
 print(len(href_list))
 
@@ -177,6 +177,7 @@ if not os.path.exists(folder_path):
 
 # 이미지 다운로드 및 저장
 for idx, src in enumerate(src_list):
+    print(str(int(src_list_length) - int(idx)), "항목 남았습니다")
     response = requests.get(src)
     if response.status_code == 200:
         with open(os.path.join(folder_path, f"youtube_image_{idx}.jpg"), 'wb') as f:
