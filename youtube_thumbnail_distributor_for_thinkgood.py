@@ -45,11 +45,13 @@ ver = str("2024-04-28 01:00:00")
 if __name__ == "__main__":
     print("씽굿연구소/크리에이터 분류 프로그램입니다")
     print("ver:", ver)
+
     # 이미지 파일이 있는 폴더 경로
     image_folder_path = f"C:\\Users\\{user}\\Desktop\\youtube_images"
 
     print("경로는 다음과 같은 위치로 기본 설정 설정되어있습니다:", image_folder_path)
     print("바탕화면에 youtube_images 폴더가 없는 경우 생성 후 썸네일 이미지들을 넣어주십시오")
+    print("분류가 적확하지 않을 수 있습니다. 완료 후 수동 확인이 반드시 필요합니다")
     a = input("준비 완료 되었다면 엔터")
 
     create_folder_if_not_exists(folder_path_1)
