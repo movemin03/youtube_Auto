@@ -1,6 +1,6 @@
 import os
 from PIL import Image
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool, cpu_count, freeze_support
 
 # 폴더 생성 함수
 def create_folder_if_not_exists(folder_path):
@@ -43,6 +43,7 @@ red_range = [(200, 50, 50), (255, 0, 0)]  # 예: R: 200 이상, G, B: 50 이하
 ver = str("2024-04-28 01:00:00")
 
 if __name__ == "__main__":
+    freeze_support()
     print("씽굿연구소/크리에이터 분류 프로그램입니다")
     print("ver:", ver)
 
