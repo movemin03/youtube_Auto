@@ -52,7 +52,7 @@ pyinstaller 유튜브_커뮤니티_댓글_스크린샷.py --onefile --hidden-imp
 **설명:**
 유튜브 비디오 탭에 있는 영상들의 썸네일과 제목, 영상 링크를 추출합니다.
 
-## 3. youtube_thumbnail_distributor_for_Color.py
+## 3. youtube_thumbnail_distributor_by_Color.py
 **설명:**
 추출된 썸네일 파일들을 특정 색상 기준에 따라 분류합니다. 기본 분류 값은 빨간색입니다. 
 
