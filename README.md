@@ -23,7 +23,7 @@ pyinstaller youtube_community_comments_screenshots.py --onefile --hidden-import 
 **Description:**
 Extracts thumbnails, titles, and video links from videos on the YouTube video tab.
 
-## 3. youtube_thumbnail_distributor_for_thinkgood.py
+## 3. youtube_thumbnail_distributor_by_Color.py
 **Description:**
 Classifies extracted thumbnail files based on specific color criteria. The default value is red.
 ---
