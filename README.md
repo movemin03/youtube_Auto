@@ -37,12 +37,16 @@ pyinstaller youtube_thumbnail_collector.py --onefile --hidden-import re --hidden
 ## 3. youtube_thumbnail_distributor_by_Color.py
 **Description:**
 Classifies extracted thumbnail files based on specific color criteria. The default value is red.
+
 **Usage:**
 The default location for thumbnail files is "C:\\Users\\{user}\\Desktop\\youtube_images". To change this, you need to modify the image_folder_path variable.
+
 **Usage:**
 The location for thumbnail files is specified as "C:\\Users\\{user}\\Desktop\\youtube_images". To make changes, you need to modify the image_folder_path variable.
+
 **Requirements:**
 - pip install pillow
+
 **Exporting as Executable:**
 For PyInstaller, use the following command:
 ```cmd
@@ -75,10 +79,13 @@ pyinstaller youtube_community_comments_screenshots.py --onefile --hidden-import 
 ## 2. youtube_thumbnail_collector.py
 **설명:**
 유튜브 비디오 탭에 있는 영상들의 썸네일과 제목, 영상 링크를 추출합니다.
+
 **사용 방법:**
 프로그램을 실행한 후 추적하려는 유튜브 홈 URL을 입력하십시오!
+
 **요구 사항:**
 - pip install requests, lxml, bs4, pandas, selenium
+
 **실행 파일로 내보내기:**
 PyInstaller를 사용하여 다음 명령을 사용합니다:
 ```cmd
@@ -88,10 +95,13 @@ pyinstaller youtube_thumbnail_collector.py --onefile --hidden-import re --hidden
 ## 3. youtube_thumbnail_distributor_by_Color.py
 **설명:**
 추출된 썸네일 파일들을 특정 색상 기준에 따라 분류합니다. 기본 분류 값은 빨간색입니다. 
+
 **사용 방법:**
 썸네일 파일 위치는 "C:\\Users\\{user}\\Desktop\\youtube_images" 으로 지정되어있습니다. 변경을 위해서는 image_folder_path 변수를 수정해야 합니다.
+
 **요구 사항:**
 - pip install pillow
+  
 **실행 파일로 내보내기:**
 그 이후 아래 예시 코드를 활용해주세요.
 ```cmd
