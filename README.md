@@ -25,8 +25,7 @@ Extracts thumbnails, titles, and video links from videos on the YouTube video ta
 
 ## 3. youtube_thumbnail_distributor_for_thinkgood.py
 **Description:**
-Classifies extracted thumbnail files based on specific color criteria. Currently tailored to categorize according to the predominant color of ThinkGood Inc., represented by the color red.
-
+Classifies extracted thumbnail files based on specific color criteria. The default value is red.
 ---
 # youtube_Auto(한국어 설명)
 
@@ -53,8 +52,8 @@ pyinstaller 유튜브_커뮤니티_댓글_스크린샷.py --onefile --hidden-imp
 **설명:**
 유튜브 비디오 탭에 있는 영상들의 썸네일과 제목, 영상 링크를 추출합니다.
 
-## 3. youtube_thumbnail_distributor_for_thinkgood.py
+## 3. youtube_thumbnail_distributor_for_Color.py
 **설명:**
-추출된 썸네일 파일들을 특정 색상 기준에 따라 분류합니다. 현재는 씽굿 주요 색상인 빨간색을 기준으로 분류됩니다.
+추출된 썸네일 파일들을 특정 색상 기준에 따라 분류합니다. 기본 분류 값은 빨간색입니다. 
 
 
