@@ -66,6 +66,7 @@ class YouTubeScraperApp:
         self.warning_tag = "warning"
         self.error_tag = "error"
         self.header_tag = "header"
+        self.scroll_progress_tag = "scroll_progress"
 
         # GUI 구성
         self.create_widgets()
@@ -163,6 +164,7 @@ class YouTubeScraperApp:
         self.log_text.tag_configure(self.warning_tag, foreground="#FF6600")
         self.log_text.tag_configure(self.error_tag, foreground="#CC0000")
         self.log_text.tag_configure(self.header_tag, foreground="#000000")
+        self.log_text.tag_configure(self.scroll_progress_tag, foreground="#0066CC")
 
         # 초기 로그 메시지
         self.add_log("=" * 70, tag=self.header_tag)
@@ -427,6 +429,10 @@ class YouTubeScraperApp:
             scroll_count = 0
             max_scrolls = 50000  # 최대 스크롤 횟수 제한
 
+            # 스크롤 진행 상황 초기 메시지
+            self.add_log(f"📜 스크롤 진행 중... (0/{max_scrolls})",
+                        tag=self.scroll_progress_tag)
+
             # 현재 스크롤 위치를 다시 가져와서 비교
             while scroll_count < max_scrolls and not self.stop_event.is_set():
                 current_scroll_position = self.driver.execute_script("return window.scrollY")
@@ -444,8 +450,8 @@ class YouTubeScraperApp:
 
                     # 스크롤 진행 상황 업데이트 (5번마다)
                     if scroll_count % 5 == 0:
-                        self.add_log(f"📜 스크롤 진행 중... ({scroll_count}/{max_scrolls})",
-                                     tag=self.info_tag, add_timestamp=True)
+                        self.add_log(f"📜 스크롤 진행 중... ({scroll_count}/최대 {max_scrolls})",
+                                     tag=self.scroll_progress_tag, replace_last=True)
 
             # 중지 확인
             if self.stop_event.is_set():
