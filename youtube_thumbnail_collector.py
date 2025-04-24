@@ -18,6 +18,8 @@ from selenium.webdriver import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from PIL import Image
+import pillow_avif  # 이 import는 필수이지만 직접 사용하지는 않음
 
 # GUI imports
 import tkinter as tk
@@ -330,6 +332,7 @@ class YouTubeScraperApp:
             option = webdriver.ChromeOptions()
             user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0"
             option.add_argument(f"user-agent={user_agent}")
+            option.add_argument(f"--headless")
 
             # 로그인 필요 여부
             if self.login_var.get():
@@ -478,6 +481,14 @@ class YouTubeScraperApp:
             self.add_log(f"   🖼️ 이미지 링크 수: {src_list_length}개", tag=self.info_tag)
             self.add_log(f"   📝 제목 수: {len(self.t_list)}개", tag=self.info_tag)
             self.add_log(f"   🔗 영상 주소 수: {len(self.href_list)}개", tag=self.info_tag)
+
+            # 이미지 링크 수가 제목 수보다 정확히 1개 더 많은 경우 첫 번째 이미지 링크 제외
+            if len(self.src_list) == len(self.t_list) + 1 and len(self.src_list) == len(self.href_list) + 1:
+                self.add_log("⚠️ '대문'이미지가 포함되어있는 것으로 보입니다. 첫 번째 이미지 링크를 제외합니다.",
+                             tag=self.warning_tag, add_timestamp=True)
+                self.src_list = self.src_list[1:]
+                src_list_length = len(self.src_list)
+                self.add_log(f"   🖼️ 조정된 이미지 링크 수: {src_list_length}개", tag=self.info_tag)
 
             # 데이터 길이 맞추기 (가장 짧은 리스트 기준)
             min_length = min(len(self.src_list), len(self.t_list), len(self.href_list))
@@ -718,7 +729,7 @@ class YouTubeScraperApp:
             self.add_log(f"✅ 이미지 다운로드 완료: {folder_path}", tag=self.success_tag, add_timestamp=True)
 
     def download_single_image(self, src, idx, folder_path, total_images, downloaded, progress_lock):
-        """단일 이미지 다운로드"""
+        """단일 이미지 다운로드 및 AVIF에서 JPG로 변환"""
         try:
             # 중지 확인
             if self.stop_event.is_set():
@@ -726,8 +737,33 @@ class YouTubeScraperApp:
 
             response = requests.get(src)
             if response.status_code == 200:
-                with open(os.path.join(folder_path, f"youtube_image_{idx}.jpg"), 'wb') as f:
+                # 임시 파일로 저장
+                temp_path = os.path.join(folder_path, f"temp_{idx}.avif")
+                with open(temp_path, 'wb') as f:
                     f.write(response.content)
+
+                # AVIF를 JPG로 변환
+                try:
+                    from PIL import Image
+                    import pillow_avif  # 필수 import
+
+                    img = Image.open(temp_path)
+                    if img.mode == 'RGBA':
+                        img = img.convert('RGB')
+
+                    output_path = os.path.join(folder_path, f"youtube_image_{idx}.jpg")
+                    img.save(output_path, 'JPEG', quality=95)
+
+                    # 임시 파일 삭제
+                    os.remove(temp_path)
+                except ImportError:
+                    self.add_log(
+                        f"⚠️ pillow-avif-plugin이 설치되어 있지 않습니다. pip install pillow pillow-avif-plugin 명령으로 설치하세요.",
+                        tag=self.warning_tag, add_timestamp=True)
+                    # 변환 실패 시 원본 그대로 저장
+                    output_path = os.path.join(folder_path, f"youtube_image_{idx}.avif")
+                    with open(output_path, 'wb') as f:
+                        f.write(response.content)
 
                 # 진행 상황 업데이트
                 with progress_lock:
