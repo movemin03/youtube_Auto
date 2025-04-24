@@ -176,7 +176,7 @@ class YouTubeScraperApp:
         self.add_log("1️⃣ YouTube 채널 링크를 입력하세요", tag=self.info_tag)
         self.add_log("   예: https://www.youtube.com/@thinkgood638/videos", tag=self.info_tag)
         self.add_log("   예: https://www.youtube.com/@Knocpr/shorts", tag=self.info_tag)
-        self.add_log("2️⃣ 채널 소유자인 경우 '로그인 필요' 체크박스를 선택하세요 (비공개 댓글 수집 가능)", tag=self.info_tag)
+        self.add_log("2️⃣ 채널 소유자인 경우 '로그인 필요' 체크박스를 선택하세요", tag=self.info_tag)
         self.add_log("3️⃣ 썸네일 다운로드 스레드 수를 조정하세요 (높을수록 빠르지만 시스템 부하 증가)", tag=self.info_tag)
         self.add_log("4️⃣ 결과 폴더 위치를 지정하세요 (기본: 프로그램 실행 위치)", tag=self.info_tag)
         self.add_log("5️⃣ '시작' 버튼을 클릭하여 작업을 시작하세요", tag=self.info_tag)
