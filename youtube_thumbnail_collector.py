@@ -82,16 +82,18 @@ c_list = []
 
 print("프로그램 실행여부 확인 중")
 # 프로그램이 완전히 켜질 때까지 대기
-while True:
-    try:
-        driver.get(url)
-        driver.execute_script("var script = document.createElement('script');\
-                              script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';\
-                              script.defer = true;\
-                              document.head.appendChild(script);")
-        break
-    except:
-        sleep_short()
+#while True:
+    #try:
+        #driver.get(url)
+        #driver.execute_script("var script = document.createElement('script');\
+                              #script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';\
+                              #script.defer = true;\
+                              #document.head.appendChild(script);")
+        #break
+    #except:
+        #sleep_short()
+driver.get(url)
+a = input("로딩대기")
 
 print("데이터를 살피는 중")
 time.sleep(1)
@@ -151,7 +153,14 @@ print(len(href_list))
 
 # 데이터프레임으로 변환
 print("엑셀 파일 수집이 완료되어 바탕화면에 파일로 저장합니다")
-df = pd.DataFrame({"타이틀": t_list, "이미지링크": src_list, "영상주소": href_list})
+
+data_dict = dict([(key, pd.Series(value)) for key, value in {
+    "타이틀": t_list,
+    "이미지링크": src_list,
+    "영상주소": href_list
+}.items()])
+
+df = pd.DataFrame(data_dict)
 df["영상주소"] = "https://www.youtube.com/" + df["영상주소"]
 
 # Excel 파일로 저장
